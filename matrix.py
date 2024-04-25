@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class MatrixError(Exception):
     """Basic exception class for matrices"""
 
