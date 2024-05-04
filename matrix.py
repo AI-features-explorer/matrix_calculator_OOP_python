@@ -26,25 +26,31 @@ class DeterminantError(MatrixError):
 
 class Matrix:
     def __init__(self, matrix):
-        self._matrix = np.array(matrix)
+        self.__matrix = np.array(matrix)
 
-    def add(self, other):
-        if self._matrix.shape != other._matrix.shape:
-            raise DimensionError("Matrices must have the same dimensions")
-        return Matrix(self._matrix + other._matrix)
+    @property
+    def current(self):
+        return self.__matrix
 
     def multiply(self, other):
-        if self._matrix.shape[1] != other._matrix.shape[0]:
+        if not isinstance(other, Matrix):
+            raise TypeError("The 'other' argument must be a Matrix object")
+        if self.current.shape[1] != other.current.shape[0]:
             raise MultiplicationError("Matrices are not compatible for multiplication")
-        return Matrix(np.dot(self._matrix, other._matrix))
+        return Matrix(np.dot(self.current, other.current))
+
+    def add(self, other):
+        if self.current.shape != other.current.shape:
+            raise DimensionError("Matrices must have the same dimensions")
+        return Matrix(self.current + other.current)
 
     def multiply_by_scalar(self, scalar):
-        return Matrix(self._matrix * scalar)
+        return Matrix(self.current * scalar)
 
     def transpose(self):
-        return Matrix(self._matrix.T)
+        return Matrix(self.current.T)
 
     def determinant(self):
-        if self._matrix.shape[0] != self._matrix.shape[1]:
+        if self.current.shape[0] != self.current.shape[1]:
             raise DeterminantError("Matrix must be square to compute determinant")
-        return np.linalg.det(self._matrix)
+        return np.linalg.det(self.current)

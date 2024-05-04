@@ -23,13 +23,14 @@ def print_matrices(calculator):
     print("\nAvailable matrices:")
     for index, matrix in enumerate(calculator.matrices):
         print(f"Matrix {index}:")
-        for row in matrix._matrix:
+        for row in matrix.current:
             print(", ".join(map(str, row)))
     print()
 
 
 def main():
     calculator = MatrixCalculator()
+    result = None
 
     while True:
         clear_console()  # Clear the console at the start of the loop
@@ -62,7 +63,7 @@ def main():
                 if operation == "determinant":
                     print(result)
                 else:
-                    for row in result._matrix:
+                    for row in result.current:
                         print(" ".join(map(str, row)))
                 input("Press enter to confirm the result...")  # User confirms the result
             elif choice == "3":
