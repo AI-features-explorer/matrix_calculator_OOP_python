@@ -10,6 +10,11 @@ class MatrixCalculator:
         self.matrices.append(new_matrix)
         return new_matrix
 
+    def remove_matrix_by_index(self, index):
+        if index < 0 or index >= len(self.matrices):
+            raise IndexError("Invalid matrix index")
+        del self.matrices[index]
+
     def perform_operation(self, operation, *args):
         if operation == "add":
             return self.matrices[args[0]].add(self.matrices[args[1]])

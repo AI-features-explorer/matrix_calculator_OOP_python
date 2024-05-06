@@ -39,7 +39,8 @@ def main():
             print("Matrix Calculator")
             print("1. Add Matrix")
             print("2. Perform Operation")
-            print("3. Exit")
+            print("3. Remove Matrix")
+            print("4. Exit")
             choice = input("Choose an option: ")
 
             if choice == "1":
@@ -67,6 +68,13 @@ def main():
                         print(" ".join(map(str, row)))
                 input("Press enter to confirm the result...")  # User confirms the result
             elif choice == "3":
+                if len(calculator.matrices) == 0:
+                    print("No matrices to remove.")
+                else:
+                    index = int(input("Enter matrix index to remove: "))
+                    calculator.remove_matrix_by_index(index)
+                    print("Matrix removed.")
+            elif choice == "4":
                 break
             else:
                 print("Invalid option. Please try again.")
